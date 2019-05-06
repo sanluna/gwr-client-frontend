@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gwr-client-frontend
+  labels:
+    app: gwr-client-frontend
+  namespace: demo1
+  annotations:
+    moniker.spinnaker.io/stack: client
+    moniker.spinnaker.io/detail: frontend
+spec:
+  selector:
+    matchLabels:
+      app: gwr-client-frontend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: gwr-client-frontend
+    spec:
+      containers:
+      - name: master
+        image: eu.gcr.io/sanluna-gwr/gwr-client-frontend
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+        readinessProbe:
+          tcpSocket:
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 8
+        resources:
+          limits:
+            memory: 510Mi
+          requests:
+            cpu: 150m
+            memory: 256Mi
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: gwr-client-frontend
+  namespace: gwr-api
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: gwr-client-frontend
+  minReplicas: 1
+  maxReplicas: 1
+  targetCPUUtilizationPercentage: 80
