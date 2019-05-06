@@ -28,7 +28,7 @@ export class ConfigsService{
   tenant;
   config : configs;
   token : token;
-  frontendConfigServiceUrl = 'http://gwr-frontend-configurator.demo1.svc.cluster.local/configs';
+  frontendConfigServiceUrl = 'http://gwr-frontend-configurator/configs';
 
   constructor(private injector: Injector) { }
   ngOnInit(){
