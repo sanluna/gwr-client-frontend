@@ -28,7 +28,7 @@ export class ConfigsService{
   tenant;
   config : configs;
   token : token;
-  frontendConfigServiceUrl = 'http://35.205.174.99/api/config/configs';
+  frontendConfigServiceUrl = 'http://' + window.location.origin + '/api/config/configs';
 
   constructor(private injector: Injector) { }
   ngOnInit(){
