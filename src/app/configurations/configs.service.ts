@@ -28,7 +28,8 @@ export class ConfigsService{
   tenant;
   config : configs;
   token : token;
-  frontendConfigServiceUrl = 'http://' + window.location.origin + '/api/config/configs';
+  frontendConfigServiceUrl = 'http://' + window.location.hostname + '/configurator/configs';
+  //frontendConfigServiceUrl = 'http://' + window.location.hostname +':10000/configs';
 
   constructor(private injector: Injector) { }
   ngOnInit(){
@@ -44,9 +45,24 @@ export class ConfigsService{
           .subscribe(data => {
             this.tenant = data.tenant;
             this.config = data;
+            this.setCorrectUrls(data);
               resolve(true);
           })
   })
+  }
+  setCorrectUrls(data : configs){
+    this.setURL(data.memberUrl)
+    data.memberUrl = 'http://' + window.location.hostname + this.setURL(data.memberUrl);
+    data.authUrl = 'http://' + window.location.hostname + this.setURL(data.authUrl);
+    data.tenantUrl = 'http://' + window.location.hostname + this.setURL(data.tenantUrl);
+    data.productUrl = 'http://' + window.location.hostname + this.setURL(data.productUrl);
+    this.config = data;
+    console.log(data)
+  }
+
+  setURL(url : string){
+    var URL = url.substring(7);
+    return URL.substring(URL.indexOf('/'));
   }
 
   setToken(token : token){

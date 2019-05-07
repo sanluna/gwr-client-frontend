@@ -10,7 +10,6 @@ import { RouterModule, Router } from '@angular/router';
 })
 export class AuthService {
 
-  loggedIn : boolean = false;
   config : configs
   rememberMe : boolean = false;
 
@@ -43,10 +42,7 @@ export class AuthService {
 
       localStorage.setItem('token', JSON.stringify(data));
       localStorage.setItem('loggedIn', 'true');
-
       this.configService.setToken(data);
-      this.loggedIn = true;
-
       this.router.navigate(['']) })
     ;
     
@@ -62,13 +58,12 @@ export class AuthService {
       this.logOut();
     }
     }
-    return JSON.parse(localStorage.getItem('loggedIn') || this.loggedIn.toString());
+    return true;
   }
+  return false;
 }
   logOut(){
-    this.loggedIn = false;
     localStorage.removeItem('token');
-    localStorage.setItem('loggedIn', 'false');
     this.router.navigate(['/login']);
   }
 
