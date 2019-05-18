@@ -1,0 +1,40 @@
+<form class="form" [formGroup]="productGroupArrayForm" (ngSubmit)="updateAndSave()">
+  <div formArrayName="productGroups">
+    <div class="card my-3" *ngFor="let group of productGroupFormArray.controls; let i = index;">
+      <div class="card-body" [formGroupName]="i">
+        <div class="card-title">
+          {{i+1}} {{group.value.groupName}}
+        </div>
+        <table class="table-sm table table-hover">
+          <tr>
+            <td>
+              Name:
+            </td>
+            <td>
+              <input class="form-control" type="text" formControlName="groupName">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Created by:
+            </td>
+            <td>{{group.value.createdBy}} at {{group.value.created}}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Last modified by:
+            </td>
+            <td>{{group.value.lastModifiedBy}} at {{group.value.lastModified}}
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="fixed-bottom confirm-bar">
+    <input type="button" class="btn btn-danger" (click)="cancelEditor()" value="Cancel">
+    <input type="button" class="btn btn-warning" (click)="addNewProductGroup()" value="Add product">
+    <input type="submit" class="btn btn-success" value="Save">
+  </div>
+</form>

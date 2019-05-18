@@ -1,0 +1,14 @@
+li{
+    list-style-type: none;
+}
+.subnav-spacing{
+    border-left: 1px black solid;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+.subnav-spacing-right{
+    border-right: 1px black solid;
+    border-left: 1px black solid;
+    padding-left: 2px;
+    padding-right: 2px;
+}

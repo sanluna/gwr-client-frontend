@@ -1,0 +1,11 @@
+.min-textarea-size{
+    height: 200px;
+    resize: none; 
+}
+.spacer{
+    height: 50px;
+}
+.confirm-bar{
+    background: #c9cdff;
+    margin-top: 50px;
+}

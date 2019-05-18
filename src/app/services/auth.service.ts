@@ -17,24 +17,19 @@ export class AuthService {
     this.config = this.configService.getConfigs();
   }
 
-  getUserDetails(name:string, pass:string){
-    let body: User = 
-      {
-        username: name,
-        password: pass,
-        roles: ''
-      }
-    return this.login(body)
+  getUserDetails(){
+    let token : token = this.configService.getToken();
+    return token.GWR_username;
   }
 
-  login(loginPayload:User) {
+  login(name:string, pass:string) {
     const urlRequest : String = 
       '?client_id=client&'+
       'client_secret=secret&'+
       'grant_type=password&'+
       'scope=read&'+
-      'username='+loginPayload.username+
-      '&password='+loginPayload.password;
+      'username='+name+
+      '&password='+pass;
     this.gwrHttpClient.PostLogin(this.config.authUrl + 'oauth/token' + urlRequest,null)
     .subscribe((data : token) => { 
       var expire : number = (+data.expires_in) + new Date().getSeconds();
@@ -58,12 +53,16 @@ export class AuthService {
       this.logOut();
     }
     }
-    return true;
+  } else if(JSON.parse(localStorage.getItem('loggedIn'))) {
+    this.logOut();
+    return;
   }
-  return false;
+  return JSON.parse(localStorage.getItem('loggedIn'));
 }
   logOut(){
     localStorage.removeItem('token');
+    localStorage.removeItem('markedItems');
+    localStorage.setItem('loggedIn', 'false');
     this.router.navigate(['/login']);
   }
 

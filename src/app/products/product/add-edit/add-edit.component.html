@@ -1,0 +1,121 @@
+<form class="form" [formGroup]="productArrayForm" (ngSubmit)="updateAndSave()">
+  <div formArrayName="products">
+    <div class="card my-3" *ngFor="let product of productFormArray.controls; let i = index;">
+      <div class="card-body" [formGroupName]="i">
+        <div class="card-title">
+          {{i+1}} {{product.value.name}}
+        </div>
+        <table class="table-sm table table-hover">
+          <tr>
+            <td>
+              Name:
+            </td>
+            <td>
+              <input class="form-control" type="text" formControlName="name">
+            </td>
+          </tr>
+          <tr>
+            <td class="">
+              Article Number:
+            </td>
+            <td>
+              <input class="form-control" type="text" formControlName="articleNumber">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Producer Article Number:
+            </td>
+            <td>
+              <input class="form-control" type="text" formControlName="producerArticleNumber">
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              ProductInfo:
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <textarea class="form-control min-textarea-size" formControlName="productInfo">{{product.value.productInfo}}</textarea>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              Description:
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <textarea class="form-control min-textarea-size" formControlName="description">{{product.value.description}}</textarea>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Price in:
+            </td>
+            <td>
+              <input class="form-control" type="text" formControlName="inPrice">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Price out:
+            </td>
+            <td>
+              <input class="form-control" type="text" formControlName="outPrice">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Campaign price:
+            </td>
+            <td>
+              <input class="form-control" type="text" formControlName="outPriceCampaign">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Brand:
+            </td>
+            <td><input class="form-control" type="text" formControlName="brand">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              ProductGroups:
+            </td>
+            <td><input class="form-control" type="text" formControlName="productGroups">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Campaign:
+            </td>
+            <td><input class="form-control" type="text" formControlName="campaign">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Created by:
+            </td>
+            <td>{{product.value.createdBy}} at {{product.value.created}}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Last modified by:
+            </td>
+            <td>{{product.value.lastModifiedBy}} at {{product.value.lastModified}}
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="fixed-bottom confirm-bar">
+    <input type="button" class="btn btn-danger" (click)="cancelEditor()" value="Cancel">
+    <input type="button" class="btn btn-warning" (click)="addNewProduct()" value="Add product">
+    <input type="submit" class="btn btn-success" value="Save">
+  </div>
+</form>

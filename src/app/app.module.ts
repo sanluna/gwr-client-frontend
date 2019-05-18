@@ -9,8 +9,14 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HttpService } from './http/http.service';
 import { AuthGuard, AuthGuardInverted } from './guards/auth.guard';
-import { ProductComponent } from './product/product.component';
-import { HomeComponent } from './home/home.component'
+import { ProductComponent } from './products/product/product.component';
+import { HomeComponent } from './home/home.component';
+import { FooterComponent } from './footer/footer.component';
+import { AddEditComponent } from './products/product/add-edit/add-edit.component'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CampaignComponent } from './products/campaign/campaign.component';
+import { GroupComponent } from './products/group/group.component';
+import { AddEditGroupComponent } from './products/group/editor/add-edit-group/add-edit-group.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,12 +24,19 @@ import { HomeComponent } from './home/home.component'
     LoginComponent,
     RegisterComponent,
     ProductComponent,
-    HomeComponent
+    HomeComponent,
+    FooterComponent,
+    AddEditComponent,
+    CampaignComponent,
+    GroupComponent,
+    AddEditGroupComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     ConfigsService,

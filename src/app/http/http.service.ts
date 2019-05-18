@@ -10,17 +10,16 @@ export class HttpService {
   }
 
   Get(url){
-    return this.httpclient.get(url, {headers : this.baseHeaders()});
+    return this.httpclient.get(url, {headers : this.Headers()});
   }
-  GetAuth(url){
-    return this.httpclient.get(url, {headers : this.authHeaders()});
-  }
-
   Post(url, body){
-    return this.httpclient.post(url, body, {headers : this.baseHeaders()});
+    return this.httpclient.post(url, body, {headers : this.Headers()});
   }
-  PostAuth(url, body){
-    return this.httpclient.post(url, body, {headers : this.authHeaders()});
+  Put(url, body){
+    return this.httpclient.put(url, body, {headers : this.Headers()});
+  }
+  Delete(url, id){
+    return this.httpclient.delete(url + id, {headers : this.Headers()}).subscribe(data => {console.log(data)}, error => {console.log(error)});
   }
 
   PostLogin(url, body){
@@ -30,22 +29,22 @@ export class HttpService {
     })})
   }
 
-  authHeaders(){
+  Headers(){
     if(this.configService.getToken()){
     return new HttpHeaders({
       'Content-Type':'application/json',
       'Accept':'application/json',
       'tenantId':this.configService.getConfigs().tenant,
-      'Authorization':'bearer ' + this.configService.getToken().access_token
+      'Authorization':'Bearer ' + this.configService.getToken().access_token
     })
-  }
-  }
-  baseHeaders(){
+  } else {
+    console.log("no Token");
     return new HttpHeaders({
-    'Content-Type':'application/json',
-    'Accept':'application/json',
-    'tenantId':this.configService.getConfigs().tenant
-    })
+      'Content-Type':'application/json',
+      'Accept':'application/json',
+      'tenantId':this.configService.getConfigs().tenant
+      })
+  }
   }
 
 }
